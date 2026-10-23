@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BraveCount Pro v3.0 — لوحة التحكم ومختبر الفحص الشامل (300 طريقة)</title>
+  <link rel="stylesheet" href="dashboard.css" />
+  <!-- Inject main-world-core & isolated-bridge directly when viewed in web preview so live simulator works out of the box -->
+  <script src="../content/main-world-core.js"></script>
+  <script src="../content/isolated-bridge.js"></script>
+</head>
+<body>
+  <div class="dash-layout">
+    <!-- Top Hero Navbar -->
+    <header class="dash-header">
+      <div class="header-right">
+        <div class="brand-logo">⚡</div>
+        <div>
+          <h1>BraveCount Pro <span class="badge-300">محرك الـ 300 تقنية</span></h1>
+          <p>الإضافة الأقوى للتحكم في المتصفح بالخلفية، عزل وتخطي Cloudflare Turnstile، وتسريع عدادات DutchyCorp و Aviso و FaucetCrypto</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <a href="/brave-count-pro-v3.zip" download="brave-count-pro-v3.zip" class="btn-download" id="btn-download-zip">
+          📦 تحميل الإضافة جاهزة لمتصفح Brave (.ZIP)
+        </a>
+        <button type="button" class="btn-run-tests" id="btn-run-all-tests">
+          🔬 إعادة فحص الـ 300 تقنية الآن
+        </button>
+      </div>
+    </header>
+
+    <!-- Status Summary Cards -->
+    <section class="kpi-grid">
+      <div class="kpi-card cyan">
+        <div class="kpi-head">
+          <span>👁️ طرق العمل في الخلفية (Stealth)</span>
+          <span class="kpi-pill" id="kpi-stealth-status">100 / 100 نشط ✓</span>
+        </div>
+        <div class="kpi-num">100 طريقة</div>
+        <div class="kpi-sub">حجب كامل لـ blur / visibilitychange + حماية يوتيوب و Aviso + إخفاء [native code]</div>
+      </div>
+
+      <div class="kpi-card green">
+        <div class="kpi-head">
+          <span>🛡️ طرق عزل وحل Cloudflare</span>
+          <span class="kpi-pill" id="kpi-cf-status">100 / 100 نشط ✓</span>
+        </div>
+        <div class="kpi-num">100 طريقة</div>
+        <div class="kpi-sub">عزل جراحي 100% + فرملة تلقائية 1.0x + نقر أصلي موثوق (isTrusted: true) + إرسال تلقائي</div>
+      </div>
+
+      <div class="kpi-card amber">
+        <div class="kpi-head">
+          <span>🚀 طرق التسريع الذكي وحماية السيرفر</span>
+          <span class="kpi-pill" id="kpi-warp-status">100 / 100 نشط ✓</span>
+        </div>
+        <div class="kpi-num">100 طريقة</div>
+        <div class="kpi-sub">تسريع حي بدون ريفريش + إخفاء سرعة الفيديو + نظام Smart Hold لمنع حظر الحساب</div>
+      </div>
+
+      <div class="kpi-card purple">
+        <div class="kpi-head">
+          <span>✅ نتيجة الفحص الذاتي الحي</span>
+          <span class="kpi-pill" id="kpi-verify-badge">ناجح 100%</span>
+        </div>
+        <div class="kpi-num" id="kpi-pass-score">12 / 12</div>
+        <div class="kpi-sub" id="kpi-pass-desc">جميع اختبارات التخفي والعزل والتوقيت تعمل بدون أي خطأ</div>
+      </div>
+    </section>
+
+    <!-- Main Interactive Grid: Simulator + Live Control Center -->
+    <div class="main-two-col">
+      <!-- Left Column: Live DutchyCorp + Aviso + Cloudflare Simulator -->
+      <section class="panel simulator-panel">
+        <div class="panel-header">
+          <h2>🎮 محاكي حي لتجربة الإضافة (DutchyCorp + Aviso + Cloudflare)</h2>
+          <span class="tag-live">تجربة حقيقية فورية</span>
+        </div>
+
+        <!-- Simulated DutchyCorp Top Bar (Exact match to user screenshot!) -->
+        <div class="dutchy-sim-bar">
+          <div class="dutchy-left">
+            <span class="adv-pill">Advertise</span>
+            <div class="dutchy-bal">💎 DUTCHY: <strong id="sim-dutchy-balance">3,923</strong></div>
+          </div>
+
+          <div class="dutchy-center">
+            <strong>Start Mining Crypto</strong> | Play, complete tasks and grow your virtual mining farm.
+          </div>
+
+          <div class="dutchy-right" id="dutchy-timer-zone">
+            <div class="dutchy-progress-track">
+              <div class="dutchy-progress-fill" id="sim-progress-fill" style="width: 100%;"></div>
+            </div>
+            <div class="dutchy-payout-text" id="sim-payout-box">
+              Payout in <span class="timer-num-box" id="timer">39</span> seconds
+            </div>
+          </div>
+        </div>
+
+        <!-- Simulated Cloudflare Turnstile + Smart Hold Claim Box (Appears or stays ready) -->
+        <div class="sim-stage-grid">
+          <!-- Box 1: Cloudflare Turnstile Live Simulation -->
+          <div class="sim-card">
+            <div class="sim-card-title">🛡️ اختبار كابتشا Cloudflare Turnstile والعزل التام</div>
+            <p class="sim-card-desc">
+              لاحظ إنه أثناء عدّ الإعلان يمكنك رفع السرعة (مثلاً 5x أو 10x)، وأول ما يخلص العداد وتنشط كابتشا Cloudflare، الإضافة بتعمل <strong>Auto-Brake لـ 1.0x</strong> تلقائياً عشان فحص Cloudflare ينجح فورا!
+            </p>
+
+            <!-- Simulated Turnstile Widget -->
+            <div class="cf-turnstile sim-turnstile-widget" id="sim-cf-widget" data-sitekey="0x4AAAAAAABkMYinukE_sim">
+              <div class="cf-widget-right">
+                <div class="cf-checkbox" id="sim-cf-checkbox" title="اضغط أو اتركه للحل التلقائي">
+                  <span class="cf-spinner" id="sim-cf-spinner"></span>
+                  <span class="cf-check-icon" id="sim-cf-check">✓</span>
+                </div>
+                <div>
+                  <div class="cf-main-txt" id="sim-cf-label">بانتظار انتهاء العداد أو الفحص التلقائي...</div>
+                  <div class="cf-sub-txt" id="sim-cf-sub">Cloudflare Turnstile — Protected by Zero-Interference Shield</div>
+                </div>
+              </div>
+              <div class="cf-brand">
+                <span>Cloudflare</span>
+                <small>Privacy • Terms</small>
+              </div>
+              <input type="hidden" name="cf-turnstile-response" id="sim-cf-token" value="" />
+            </div>
+
+            <div class="sim-actions-row">
+              <button type="button" class="btn-sim-claim" id="btn-sim-claim" disabled>
+                🎁 استلام المكافأة (Claim +150 DUTCHY)
+              </button>
+              <button type="button" class="btn-sim-reset" id="btn-sim-restart">
+                🔄 إعادة تشغيل الإعلان (39 ثانية)
+              </button>
+            </div>
+            <div class="sim-log-banner" id="sim-status-log">
+              ✅ العداد شغال حتى لو خرجت من التاب أو نزلت المتصفح تحت — جرب تغيير السرعة من اليمين!
+            </div>
+          </div>
+
+          <!-- Box 2: Aviso YouTube / Video Speed Stealth Simulation -->
+          <div class="sim-card">
+            <div class="sim-card-title">🎬 محاكي موقع Aviso وفيديوهات يوتيوب (إخفاء التسريع)</div>
+            <p class="sim-card-desc">
+              في موقع Aviso، لو سرّعت الفيديو بالطريقة العادية الموقع بيكشف إن <code>video.playbackRate &gt; 1</code>. هنا الإضافة بتسرّع الفيديو فعلياً بينما ترد على فحص الموقع بـ <strong>1.0x</strong>!
+            </p>
+
+            <div class="video-sim-box">
+              <video id="sim-video" muted loop playsinline width="100%" height="90" style="background:#050b14; border-radius:8px; border:1px solid rgba(0,245,212,0.25);"></video>
+              <div class="video-stats-grid">
+                <div class="v-stat">
+                  <span>السرعة الفعلية للمشغل:</span>
+                  <strong class="neon-amber" id="vid-real-speed">1.0x</strong>
+                </div>
+                <div class="v-stat">
+                  <span>ما يقرأه موقع Aviso (<code>video.playbackRate</code>):</span>
+                  <strong class="neon-cyan" id="vid-spoofed-speed">1.0x (مخفي ✓)</strong>
+                </div>
+                <div class="v-stat">
+                  <span>حالة الرؤية في الخلفية:</span>
+                  <strong class="neon-green" id="vid-intersect-state">isIntersecting: true (100%)</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Column: Live Control Panel & Installation Guide -->
+      <aside class="panel control-panel">
+        <div class="panel-header">
+          <h2>🎛️ لوحة التحكم الفورية في الإضافة</h2>
+          <span class="tag-sync">متزامن لحظياً</span>
+        </div>
+
+        <div class="ctrl-group">
+          <div class="ctrl-row">
+            <span>تفعيل تسريع عداد الإعلانات (Time-Warp)</span>
+            <input type="checkbox" id="dash-chk-speed" />
+          </div>
+          <div class="ctrl-slider-wrap">
+            <div class="ctrl-row">
+              <span>سرعة العداد الحالية:</span>
+              <strong class="neon-amber" id="dash-lbl-speed">1.0x</strong>
+            </div>
+            <input type="range" id="dash-rng-speed" min="1" max="20" step="0.1" value="1.0" class="cyber-range" />
+            <div class="dash-speed-btns">
+              <button type="button" class="d-sp-btn active" data-sp="1">1x</button>
+              <button type="button" class="d-sp-btn" data-sp="1.2">1.2x آمن</button>
+              <button type="button" class="d-sp-btn" data-sp="2">2x</button>
+              <button type="button" class="d-sp-btn" data-sp="5">5x</button>
+              <button type="button" class="d-sp-btn" data-sp="10">10x</button>
+              <button type="button" class="d-sp-btn" data-sp="20">20x</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="ctrl-group">
+          <div class="ctrl-row">
+            <span>🎬 سرعة الفيديو المخفية (Aviso / YouTube):</span>
+            <strong class="neon-cyan" id="dash-lbl-vidspeed">1.0x</strong>
+          </div>
+          <input type="range" id="dash-rng-vidspeed" min="1" max="16" step="0.5" value="1.0" class="cyber-range" />
+        </div>
+
+        <div class="ctrl-group">
+          <div class="ctrl-row">
+            <span>🛡️ الفرملة التلقائية وقت ظهور Cloudflare (Auto-Brake 1.0x)</span>
+            <input type="checkbox" id="dash-chk-autobrake" checked />
+          </div>
+          <div class="ctrl-row">
+            <span>🔒 حماية السيرفر الذكية (Fast-Forward + Smart Hold)</span>
+            <input type="checkbox" id="dash-chk-smarthold" checked />
+          </div>
+          <div class="ctrl-row">
+            <span>🤖 الضغط التلقائي على Claim بعد حل الكابتشا</span>
+            <input type="checkbox" id="dash-chk-autosubmit" checked />
+          </div>
+        </div>
+
+        <!-- Step-by-step Brave Installation Guide -->
+        <div class="install-box">
+          <h3>🦁 خطوات تركيب الإضافة على متصفح Brave في 15 ثانية:</h3>
+          <ol>
+            <li>اضغط على زر <strong>تحميل الإضافة (.ZIP)</strong> بالأعلى وفك الضغط في فولدر على جهازك (أو استخدم فولدر المشروع مباشرة).</li>
+            <li>افتح متصفح Brave واكتب في شريط العنوان: <code>brave://extensions</code></li>
+            <li>فعّل زر <strong>Developer mode (وضع المطور)</strong> من أعلى اليمين.</li>
+            <li>اضغط على <strong>Load unpacked (تحميل غير محزم)</strong> واختر الفولدر، وهتشتغل معاك فوراً في كل المواقع!</li>
+          </ol>
+        </div>
+      </aside>
+    </div>
+
+    <!-- Real-Time Self-Test Verification Table (12 Live Browser Diagnostics) -->
+    <section class="panel">
+      <div class="panel-header">
+        <h2>🔬 نتائج الفحص الهندسي الحي على متصفحك (Live Browser Integrity Audit)</h2>
+        <span class="tag-live" id="audit-timestamp">تم الفحص الآن</span>
+      </div>
+      <div class="audit-grid" id="live-audit-grid">
+        <!-- Populated dynamically by dashboard.js -->
+      </div>
+    </section>
+
+    <!-- Complete Searchable Matrix of All 300 Techniques -->
+    <section class="panel">
+      <div class="panel-header">
+        <h2>📋 الدليل الكامل وحالة تفعيل الـ 300 تقنية (100 خلفية + 100 كلود فلير + 100 تسريع)</h2>
+        <div class="filter-bar">
+          <input type="text" id="txt-search-300" placeholder="ابحث في الـ 300 تقنية (مثال: Turnstile, Aviso, hasFocus, Smart Hold)..." class="search-input" />
+          <select id="sel-cat-300" class="filter-select">
+            <option value="all">جميع الأقسام (300 طريقة)</option>
+            <option value="stealth">القسم 1: منع كشف الخروج من التاب و Aviso (100 طريقة)</option>
+            <option value="cloudflare">القسم 2: عزل وتخطي وحل Cloudflare (100 طريقة)</option>
+            <option value="timewarp">القسم 3: التسريع المتقدم وحماية السيرفر (100 طريقة)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="methods-grid" id="methods-300-container">
+        <!-- 300 cards rendered by dashboard.js -->
+      </div>
+    </section>
+  </div>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>

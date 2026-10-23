@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BraveCount Pro — 300-Core Programmatic Control</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="popup-shell">
+    <!-- Top Header -->
+    <header class="top-bar">
+      <div class="brand-wrap">
+        <div class="logo-orb">⚡</div>
+        <div>
+          <h1 class="app-title">BraveCount <span class="pro-tag">PRO 300</span></h1>
+          <p class="site-host" id="current-host">تهيئة برمجية 100% — بدون أي API خارجي</p>
+        </div>
+      </div>
+      <label class="master-switch" title="تشغيل / إيقاف الإضافة">
+        <input type="checkbox" id="chk-enabled" checked />
+        <span class="slider-pill"></span>
+      </label>
+    </header>
+
+    <!-- Live Telemetry Strip -->
+    <section class="telemetry-strip">
+      <div class="tele-card">
+        <span class="tele-label">تهيئة التاب والجهاز</span>
+        <span class="tele-val neon-cyan" id="tele-focus">مهيأ ونشط 100%</span>
+      </div>
+      <div class="tele-card">
+        <span class="tele-label">عداد الإعلان</span>
+        <span class="tele-val neon-amber" id="tele-timer">--</span>
+      </div>
+      <div class="tele-card">
+        <span class="tele-label">حل Cloudflare البرمجي</span>
+        <span class="tele-val neon-green" id="tele-cf">جاهز برمجياً ✓</span>
+      </div>
+    </section>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs">
+      <button class="tab-btn active" data-tab="tab-speed">🚀 السرعة والعداد</button>
+      <button class="tab-btn" data-tab="tab-cf">🛡️ Cloudflare (برمجي)</button>
+      <button class="tab-btn" data-tab="tab-stealth">👁️ الخلفية و Aviso</button>
+    </nav>
+
+    <!-- TAB 1: Speed & Time-Warp -->
+    <main class="tab-panel active" id="tab-speed">
+      <div class="card highlight-card">
+        <div class="row-between">
+          <div>
+            <div class="setting-title">مفتاح تسريع الوقت الاختياري</div>
+            <div class="setting-desc">تحكم كامل في سرعة عدادات الإعلانات مع فرملة تلقائية وقت الكابتشا</div>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="chk-speedEnabled" />
+            <span class="toggle-track"></span>
+          </label>
+        </div>
+
+        <div class="speed-control-box" id="speed-box">
+          <div class="row-between speed-readout">
+            <span>معامل تسريع العدادات:</span>
+            <strong class="speed-badge" id="lbl-speedFactor">1.0x</strong>
+          </div>
+          <input type="range" id="rng-speedFactor" min="1" max="20" step="0.1" value="1.0" class="cyber-range" />
+          <div class="quick-pills" id="speed-pills">
+            <button type="button" class="pill-btn active" data-sp="1.0">1x عادي</button>
+            <button type="button" class="pill-btn" data-sp="1.2">1.2x آمن</button>
+            <button type="button" class="pill-btn" data-sp="1.5">1.5x</button>
+            <button type="button" class="pill-btn" data-sp="2.0">2x</button>
+            <button type="button" class="pill-btn" data-sp="3.0">3x</button>
+            <button type="button" class="pill-btn" data-sp="5.0">5x</button>
+            <button type="button" class="pill-btn" data-sp="10.0">10x</button>
+            <button type="button" class="pill-btn" data-sp="20.0">20x</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Video Speed (Aviso / YouTube) -->
+      <div class="card">
+        <div class="row-between">
+          <div>
+            <div class="setting-title">🎬 تسريع الفيديو المستقل (Aviso / YouTube)</div>
+            <div class="setting-desc">يسرّع الفيديو مع تزييف القراءة لـ 1.0x حتى لا يكشفك الموقع</div>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="chk-videoSpeedEnabled" />
+            <span class="toggle-track"></span>
+          </label>
+        </div>
+        <div class="row-between" style="margin-top:8px;">
+          <span class="sub-label">سرعة الفيديو المخفية: <strong id="lbl-videoSpeedFactor" style="color:#00f5d4;">1.0x</strong></span>
+          <input type="range" id="rng-videoSpeedFactor" min="1" max="16" step="0.5" value="1.0" class="cyber-range small-range" />
+        </div>
+      </div>
+
+      <!-- Anti-Server-Ban (Smart Hold) & Mode -->
+      <div class="card">
+        <div class="row-between">
+          <div>
+            <div class="setting-title">🔒 حماية السيرفر الذكية (Fast-Forward + Smart Hold)</div>
+            <div class="setting-desc">يُظهر الكابتشا فوراً وينتظر التوقيت الآمن للسيرفر قبل الإرسال لمنع الحظر</div>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="chk-smartHoldEnabled" checked />
+            <span class="toggle-track"></span>
+          </label>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="row-between">
+          <span class="setting-title">نظام التسريع الزمني:</span>
+          <select id="sel-warpMode" class="cyber-select">
+            <option value="timers_only">المؤقتات فقط (الأكثر أماناً مع Cloudflare)</option>
+            <option value="full_warp">تسريع كامل (المؤقتات + ساعة النظام Date.now)</option>
+          </select>
+        </div>
+      </div>
+    </main>
+
+    <!-- TAB 2: 100% Programmatic Cloudflare Conditioner & Solver (Zero External APIs) -->
+    <main class="tab-panel" id="tab-cf">
+      <div class="cf-hero-banner">
+        <div class="cf-shield-icon">🛡️</div>
+        <div>
+          <div class="cf-hero-title">محرك Cloudflare البرمجي الخالص (100 طريقة ذاتية)</div>
+          <div class="cf-hero-sub" id="cf-detail-status">تهيئة الجهاز وأي تاب مفتوحة برمجياً 100% — بدون أي API خارجي</div>
+        </div>
+      </div>
+
+      <div class="card list-card">
+        <div class="row-between item-row">
+          <div>
+            <div class="setting-title">تهيئة إطار الكابتشا والـ C++ Focus في أي تاب مفتوحة</div>
+            <div class="setting-desc">تفعيل Emulation.setFocusEmulationEnabled وتهيئة إطار Cloudflare من الداخل ليقبل الحل بالخلفية</div>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="chk-cdpFocusEmulation" checked />
+            <span class="toggle-track"></span>
+          </label>
+        </div>
+
+        <div class="row-between item-row">
+          <div>
+            <div class="setting-title">الفرملة التلقائية وقت الكابتشا (Auto-Brake 1.0x)</div>
+            <div class="setting-desc">إرجاع السرعة لـ 1.0x تلقائياً لحظة ظهور الكابتشا لنجاح الفحص التلقائي</div>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="chk-autoBrakeOnCaptcha" checked />
+            <span class="toggle-track"></span>
+          </label>
+        </div>
+
+        <div class="row-between item-row">
+          <div>
+            <div class="setting-title">محرك النقر الأصلي + مسار الماوس البشري (CDP Native Click)</div>
+            <div class="setting-desc">تحريك الماوس بمسار Bezier وإرسال ضغطة أصلية (isTrusted: true) من نواة المتصفح</div>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="chk-nativeTrustedClick" checked />
+            <span class="toggle-track"></span>
+          </label>
+        </div>
+
+        <div class="row-between item-row">
+          <div>
+            <div class="setting-title">الحل البرمجي المزدوج بالكيبورد الأصلي (Spacebar Solver)</div>
+            <div class="setting-desc">التركيز على إطار الكابتشا وإرسال ضغطة Space أصلية كدعم برمجي إضافي</div>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="chk-keyboardSpaceFallback" checked />
+            <span class="toggle-track"></span>
+          </label>
+        </div>
+
+        <div class="row-between item-row">
+          <div>
+            <div class="setting-title">الإرسال التلقائي واختيار Turnstile وتطهير الطبقات</div>
+            <div class="setting-desc">إطلاق أحداث التوكن برمجياً والضغط التلقائي على زر Claim بعد الحل</div>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="chk-autoSubmitAfterSolve" checked />
+            <span class="toggle-track"></span>
+          </label>
+        </div>
+      </div>
+    </main>
+
+    <!-- TAB 3: Always-Active Stealth & Aviso Mode (100 Methods) -->
+    <main class="tab-panel" id="tab-stealth">
+      <div class="card list-card">
+        <div class="row-between item-row">
+          <div>
+            <div class="setting-title">منع اكتشاف الخروج من التاب والويندوز (Always Active)</div>
+            <div class="setting-desc">تثبيت visibilityState = visible و hasFocus = true مع إخفاء Native Code</div>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="chk-alwaysActive" checked />
+            <span class="toggle-track"></span>
+          </label>
+        </div>
+
+        <div class="row-between item-row">
+          <div>
+            <div class="setting-title">وضع فيديوهات يوتيوب وموقع Aviso</div>
+            <div class="setting-desc">منع إيقاف الفيديو في الخلفية وتزييف IntersectionObserver بنسبة 100%</div>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="chk-avisoYouTubeMode" checked />
+            <span class="toggle-track"></span>
+          </label>
+        </div>
+
+        <div class="row-between item-row">
+          <div>
+            <div class="setting-title">تردد الصوت الصامت + Web Worker لمنع تبطيء Brave</div>
+            <div class="setting-desc">يمنع متصفح Brave من تجميد التاب أو تبطيء الثانية في الخلفية</div>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="chk-silentAudioKeepAlive" checked />
+            <span class="toggle-track"></span>
+          </label>
+        </div>
+
+        <div class="row-between item-row">
+          <div>
+            <div class="setting-title">تهيئة جميع التابات المفتوحة تلقائياً (Multi-Tab Conditioner)</div>
+            <div class="setting-desc">المرور الدوري على كل التابات المفتوحة وتجهيزها لحل الكابتشا في الخلفية</div>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="chk-multiTabConditioner" checked />
+            <span class="toggle-track"></span>
+          </label>
+        </div>
+
+        <div class="row-between item-row">
+          <div>
+            <div class="setting-title">شريط الحالة العائم داخل الصفحة (Mini-HUD)</div>
+            <div class="setting-desc">شريط مخفي بمعزل Shadow DOM يعرض العداد والسرعة وحالة الكابتشا</div>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="chk-showFloatingHud" checked />
+            <span class="toggle-track"></span>
+          </label>
+        </div>
+      </div>
+    </main>
+
+    <!-- Bottom Action Bar -->
+    <footer class="bottom-bar">
+      <button type="button" id="btn-panic" class="btn-danger" title="إرجاع السرعة إلى 1.0x فوراً (Alt+R)">
+        🛑 وضع طبيعي 1.0x
+      </button>
+      <button type="button" id="btn-open-dashboard" class="btn-primary">
+        🔬 مختبر الفحص الشامل (300 طريقة)
+      </button>
+    </footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

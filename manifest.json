@@ -1,0 +1,104 @@
+{
+  "manifest_version": 3,
+  "name": "BraveCount Pro v4.0 — 300-Core Stealth, Cloudflare Shield & Time-Warp",
+  "short_name": "BraveCount Pro v4.0",
+  "version": "4.0.0",
+  "description": "محرك متقدم (300 تقنية): إبقاء التاب والفيديو نشطاً في الخلفية 100%، عزل وحل كابتشا Cloudflare تلقائياً، وتسريع عدادات الإعلانات بذكاء.",
+  "permissions": [
+    "storage",
+    "tabs",
+    "activeTab",
+    "scripting",
+    "debugger",
+    "alarms",
+    "webNavigation"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "src/background/service-worker.js"
+  },
+  "action": {
+    "default_title": "BraveCount Pro — لوحة التحكم (300 تقنية)",
+    "default_popup": "src/popup/popup.html",
+    "default_icon": {
+      "16": "assets/icon16.png",
+      "32": "assets/icon32.png",
+      "48": "assets/icon48.png",
+      "128": "assets/icon128.png"
+    }
+  },
+  "options_page": "src/dashboard/index.html",
+  "icons": {
+    "16": "assets/icon16.png",
+    "32": "assets/icon32.png",
+    "48": "assets/icon48.png",
+    "128": "assets/icon128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "exclude_matches": [
+        "*://accounts.google.com/*",
+        "*://*.accounts.google.com/*",
+        "*://accounts.youtube.com/*",
+        "*://myaccount.google.com/*",
+        "*://login.microsoftonline.com/*",
+        "*://login.live.com/*",
+        "*://appleid.apple.com/*"
+      ],
+      "js": ["src/content/main-world-core.js"],
+      "run_at": "document_start",
+      "all_frames": true,
+      "match_about_blank": false,
+      "world": "MAIN"
+    },
+    {
+      "matches": ["<all_urls>"],
+      "exclude_matches": [
+        "*://accounts.google.com/*",
+        "*://*.accounts.google.com/*",
+        "*://accounts.youtube.com/*",
+        "*://myaccount.google.com/*",
+        "*://login.microsoftonline.com/*",
+        "*://login.live.com/*",
+        "*://appleid.apple.com/*"
+      ],
+      "js": ["src/content/isolated-bridge.js"],
+      "run_at": "document_start",
+      "all_frames": true,
+      "match_about_blank": false,
+      "world": "ISOLATED"
+    }
+  ],
+  "commands": {
+    "speed-up": {
+      "suggested_key": {
+        "default": "Alt+Up"
+      },
+      "description": "زيادة سرعة العداد (Speed Up)"
+    },
+    "speed-down": {
+      "suggested_key": {
+        "default": "Alt+Down"
+      },
+      "description": "تقليل سرعة العداد (Speed Down)"
+    },
+    "panic-reset": {
+      "suggested_key": {
+        "default": "Alt+R"
+      },
+      "description": "زر الطوارئ — إرجاع السرعة إلى 1.0x فوراً (Panic Reset)"
+    }
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "assets/*",
+        "src/dashboard/*"
+      ],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
